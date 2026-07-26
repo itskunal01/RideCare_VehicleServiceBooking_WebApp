@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RideCare — Book Your Bike Service</title>
+  <link rel="stylesheet" href="/frontend/css/booking.css">
+</head>
+<body>
+  
+  <header>
+    <div class="logo">RideCare</div>
+    <nav>
+      <ul>
+        <li><a href="/frontend/index.html">Home</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/packages.html">Packages</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main class="container booking-page">
+    <h1>Book Your Bike Service</h1>
+    <p class="subtitle">Fill in your details and confirm your booking below.</p>
+
+    <div class="booking-grid">
+      
+      <form id="bookingForm" class="form-section">
+        <h2>Customer Information</h2>
+        <label>Full Name
+          <input type="text" id="name" required>
+        </label>
+        <label>Phone Number
+          <input type="tel" id="phone" required>
+        </label>
+        <label>Email Address
+          <input type="email" id="email" required>
+        </label>
+
+        <h2>Vehicle Details</h2>
+        <label>Bike Name / Model
+          <input type="text" id="bikeName" placeholder="Ex: Pulsar 150" required>
+        </label>
+        <label>Vehicle Number
+          <input type="text" id="vehicleNo" placeholder="Ex: MH14 04A 1234" required>
+        </label>
+        <div class="inline-fields">
+          <label>Year of Purchase
+            <input type="number" id="purchaseYear" placeholder="Ex: 2022" min="1990" max="2025" required>
+          </label>
+          <label>Odometer Reading (Approx.)
+            <input type="number" id="odometer" placeholder="Ex: 18500" min="0">
+          </label>
+        </div>
+
+        <h2>Service Type</h2>
+        <div class="service-type">
+          <label>
+            <input type="radio" name="serviceType" value="doorstep" checked>
+            Doorstep Service (+₹150)
+          </label>
+          <label>
+            <input type="radio" name="serviceType" value="pickup_drop">
+            Workshop Pick-up & Drop (+₹250)
+          </label>
+        </div>
+
+        <div id="addressFields">
+          <h2>Address Details</h2>
+          <label>Pickup Address
+            <textarea id="address" rows="3" required></textarea>
+          </label>
+          <label>Preferred Date
+            <input type="date" id="date" required>
+          </label>
+          <label>Preferred Time
+            <input type="time" id="time" required>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary">Confirm Booking</button>
+      </form>
+
+      
+      <aside class="summary-section">
+        <h2>Your Selected Services</h2>
+        <div id="serviceList" class="service-list">
+          <p class="empty">No services selected.</p>
+        </div>
+
+        <div class="summary-total">
+          <div class="line">
+            <span>Services Total</span>
+            <span id="servicesTotal">₹0</span>
+          </div>
+          <div class="line">
+            <span>Doorstep Service Fee</span>
+            <span id="doorstepFee">₹0</span>
+          </div>
+          <div class="line">
+            <span>Pickup & Drop</span>
+            <span id="pickupFee">₹0</span>
+          </div>
+          <div class="line grand">
+            <span>Total Payable</span>
+            <span id="grandTotal">₹0</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/js/booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Manage Packages</title>
+    <link rel="stylesheet" href="/frontend/css/Admincss/admin-packages.css">
+</head>
+
+<body>
+
+    <!-- SAME NAVBAR -->
+    <header class="admin-navbar">
+        <div class="logo">RideCare Admin</div>
+        <nav>
+        <a href="/frontend/Admin/admin_dash.html">Dashboard</a>
+        <a href="/frontend/Admin/admin-bookings.htm">Bookings</a>
+        <a href="/frontend/Admin/admin-services.html">Services</a>
+        <a href="/frontend/Admin/admin-packages.html">Packages</a>
+        <a href="/frontend/Admin/admin-user.html" class="active">Users</a>
+        <a href="admin-login.html" class="logout">Logout</a>
+    </nav>
+    </header>
+
+    <div class="container">
+        <h2>Manage Packages</h2>
+
+        <button class="add-btn" id="openPackageForm">+ Add Package</button>
+
+        <!-- Packages Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Package Name</th>
+                    <th>Description</th>
+                    <th>Price (₹)</th>
+                    <th>Included Services</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="packagesTableBody">
+                <tr>
+                    <td>Basic Maintenance Package</td>
+                    <td>Regular service essentials</td>
+                    <td>999</td>
+                    <td>Oil change, chain lube, brake check</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for adding/editing packages -->
+    <div class="modal" id="packageModal">
+        <div class="modal-content">
+            <h3 id="packageModalTitle">Add Package</h3>
+
+            <label>Package Name
+                <input type="text" id="packageName">
+            </label>
+
+            <label>Description
+                <textarea id="packageDescription"></textarea>
+            </label>
+
+            <label>Price (₹)
+                <input type="number" id="packagePrice">
+            </label>
+
+            <label>Included Services (comma separated)
+                <textarea id="packageServices"></textarea>
+            </label>
+
+            <div class="modal-actions">
+                <button id="savePackageBtn">Save</button>
+                <button id="closePackageModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/frontend/adminjs/admin-packages.js"></script>
+
+</body>
+</html>

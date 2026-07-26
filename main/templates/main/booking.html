@@ -1,0 +1,300 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}RideCare — Book Your Bike Service{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking.css' %}">
+{% endblock %}
+
+{% block content %}
+  <main class="container booking-page">
+    <h1>Book Your Bike Service</h1>
+    <p class="subtitle">Fill in your details and confirm your booking below.</p>
+
+    <div class="booking-grid">
+      
+      <form id="bookingForm" class="form-section" method="post" action="{% url 'booking' %}">
+        {% csrf_token %}
+        <h2>Customer Information</h2>
+        <label>Full Name
+          <input type="text" id="name" name="name" value="{% if user.is_authenticated %}{{ user.get_full_name|default:user.username }}{% endif %}" required>
+        </label>
+        <label>Phone Number
+          <input type="tel" id="phone" name="phone" value="{% if user.is_authenticated %}{{ user.profile.phone }}{% endif %}" required>
+        </label>
+        <label>Email Address
+          <input type="email" id="email" name="email" value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" required>
+        </label>
+
+        <h2>Vehicle Details</h2>
+        <label>Bike Name / Model
+          <input type="text" id="bikeName" name="bike_name" placeholder="Ex: Pulsar 150" required>
+        </label>
+        <label>Vehicle Number
+          <input type="text" id="vehicleNo" name="vehicle_number" placeholder="Ex: MH14 04A 1234" required>
+        </label>
+        <div class="inline-fields">
+          <label>Year of Purchase
+            <input type="number" id="purchaseYear" name="purchase_year" placeholder="Ex: 2022" min="1990" max="2025" required>
+          </label>
+          <label>Odometer Reading (Approx.)
+            <input type="number" id="odometer" name="odometer_reading" placeholder="Ex: 18500" min="0">
+          </label>
+        </div>
+
+        <h2>Service Type</h2>
+        <div class="service-type">
+          <label>
+            <input type="radio" name="service_type" value="doorstep" checked>
+            Doorstep Service (+₹150)
+          </label>
+          <label>
+            <input type="radio" name="service_type" value="pickup_drop">
+            Workshop Pick-up & Drop (+₹250)
+          </label>
+        </div>
+
+        <div id="addressFields">
+          <h2>Address Details</h2>
+          <label>Pickup Address
+            <textarea id="address" name="address" rows="3" required>{% if user.is_authenticated %}{{ user.profile.address }}{% endif %}</textarea>
+          </label>
+          <label>Preferred Date
+            <input type="date" id="date" name="preferred_date" min="" required>
+          </label>
+          <label>Preferred Time
+            <input type="time" id="time" name="preferred_time" required>
+          </label>
+        </div>
+
+        <!-- Hidden fields for selected services/packages -->
+        {% for service_id in selected_service_ids %}
+          <input type="hidden" name="services" value="{{ service_id }}">
+        {% endfor %}
+        {% for package_id in selected_package_ids %}
+          <input type="hidden" name="packages" value="{{ package_id }}">
+        {% endfor %}
+
+        <button type="submit" class="btn-primary">Confirm Booking</button>
+      </form>
+
+      
+      <aside class="summary-section">
+        <h2>Your Selected Services</h2>
+        <div id="serviceList" class="service-list">
+          <p class="empty">No services selected.</p>
+        </div>
+
+        <div class="summary-total">
+          <div class="line">
+            <span>Services Total</span>
+            <span id="servicesTotal">₹0</span>
+          </div>
+          <div class="line">
+            <span>Doorstep Service Fee</span>
+            <span id="doorstepFee">₹0</span>
+          </div>
+          <div class="line">
+            <span>Pickup & Drop</span>
+            <span id="pickupFee">₹0</span>
+          </div>
+          <div class="line grand">
+            <span>Total Payable</span>
+            <span id="grandTotal">₹0</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/booking.js' %}"></script>
+<script>
+  // Booking page: Manage selected services/packages with individual remove buttons
+  (function() {
+    const form = document.getElementById('bookingForm');
+    const serviceList = document.getElementById('serviceList');
+    const servicesTotalEl = document.getElementById('servicesTotal');
+    
+    if (!form || !serviceList || !servicesTotalEl) return;
+    
+    // Track selected items (can be modified when user removes items)
+    let selectedServiceIds = [{% for id in selected_service_ids %}'{{ id }}'{% if not forloop.last %},{% endif %}{% endfor %}];
+    let selectedPackageIds = [{% for id in selected_package_ids %}'{{ id }}'{% if not forloop.last %},{% endif %}{% endfor %}];
+    let serviceDataCache = null;
+    
+    // Update hidden form inputs to match current selections
+    function syncHiddenInputs() {
+      // Remove all existing hidden inputs for services/packages
+      form.querySelectorAll('input[name="services"], input[name="packages"]').forEach(el => el.remove());
+      
+      // Add hidden inputs for current selections
+      selectedServiceIds.forEach(id => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'services';
+        input.value = id;
+        form.appendChild(input);
+      });
+      
+      selectedPackageIds.forEach(id => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'packages';
+        input.value = id;
+        form.appendChild(input);
+      });
+    }
+    
+    // Render the service list with remove buttons
+    function renderServiceList() {
+      if (!serviceDataCache) return;
+      
+      serviceList.innerHTML = '';
+      let total = 0;
+      
+      // Helper to create a service item row with remove button
+      function createServiceRow(item, type, id) {
+        const div = document.createElement('div');
+        div.className = 'service-item';
+        div.style.display = 'flex';
+        div.style.justifyContent = 'space-between';
+        div.style.alignItems = 'center';
+        div.style.gap = '0.75rem';
+        div.style.marginBottom = '0.5rem';
+        div.style.padding = '0.5rem';
+        div.style.borderBottom = '1px solid #eee';
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.style.cssText = 'padding: 4px 12px; font-size: 0.875rem; background: #ff4c4c; color: white; border: none; border-radius: 4px; cursor: pointer;';
+        removeBtn.addEventListener('mouseenter', () => {
+          removeBtn.style.background = '#ff3333';
+        });
+        removeBtn.addEventListener('mouseleave', () => {
+          removeBtn.style.background = '#ff4c4c';
+        });
+        removeBtn.addEventListener('click', () => {
+          removeItem(id, type);
+        });
+        
+        div.innerHTML = `
+          <span style="flex: 1;">${item.name}</span>
+          <span style="font-weight: 600; margin-right: 0.5rem;">₹${item.price}</span>
+        `;
+        div.appendChild(removeBtn);
+        
+        return div;
+      }
+      
+      // Render services
+      selectedServiceIds.forEach(id => {
+        const service = serviceDataCache.services.find(s => String(s.id) === String(id));
+        if (service) {
+          total += parseFloat(service.price);
+          serviceList.appendChild(createServiceRow(service, 'service', id));
+        }
+      });
+      
+      // Render packages
+      selectedPackageIds.forEach(id => {
+        const pkg = serviceDataCache.packages.find(p => String(p.id) === String(id));
+        if (pkg) {
+          total += parseFloat(pkg.price);
+          serviceList.appendChild(createServiceRow(pkg, 'package', id));
+        }
+      });
+      
+      // Show empty message if no items
+      if (serviceList.children.length === 0) {
+        serviceList.innerHTML = '<p class="empty">No services selected.</p>';
+      }
+      
+      // Update totals
+      servicesTotalEl.textContent = '₹' + total;
+      updateGrandTotal();
+    }
+    
+    // Remove an item from selections
+    function removeItem(id, type) {
+      if (type === 'service') {
+        selectedServiceIds = selectedServiceIds.filter(sid => String(sid) !== String(id));
+      } else {
+        selectedPackageIds = selectedPackageIds.filter(pid => String(pid) !== String(id));
+      }
+      
+      syncHiddenInputs();
+      renderServiceList();
+    }
+    
+    // Update grand total (shared with booking.js)
+    window.updateGrandTotal = function() {
+      const selectedType = document.querySelector("input[name='service_type']:checked")?.value || "doorstep";
+      let doorstepFee = 0;
+      let pickupFee = 0;
+      
+      if (selectedType === "doorstep") {
+        doorstepFee = 150;
+      } else if (selectedType === "pickup_drop") {
+        pickupFee = 250;
+      }
+      
+      const serviceTotalText = servicesTotalEl.textContent.replace(/[^\d]/g, "");
+      const serviceTotal = parseInt(serviceTotalText || "0");
+      
+      document.getElementById('doorstepFee').textContent = '₹' + doorstepFee;
+      document.getElementById('pickupFee').textContent = '₹' + pickupFee;
+      
+      const grandTotal = serviceTotal + doorstepFee + pickupFee;
+      document.getElementById('grandTotal').textContent = '₹' + grandTotal;
+    };
+    
+    // Set minimum date to today (prevents selecting past dates)
+    function setMinDate() {
+      const dateInput = document.getElementById('date');
+      if (dateInput) {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const todayStr = `${year}-${month}-${day}`;
+        dateInput.setAttribute('min', todayStr);
+      }
+    }
+    
+    // Load service/package data and render
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set minimum date to today
+      setMinDate();
+      
+      if (selectedServiceIds.length > 0 || selectedPackageIds.length > 0) {
+        fetch("{% url 'service_data' %}")
+          .then(response => response.json())
+          .then(data => {
+            serviceDataCache = data;
+            syncHiddenInputs();
+            renderServiceList();
+          })
+          .catch(err => {
+            console.error('Failed to load service data:', err);
+            syncHiddenInputs();
+            updateGrandTotal();
+          });
+      } else {
+        syncHiddenInputs();
+        updateGrandTotal();
+      }
+    });
+    
+    // Listen for service type changes
+    document.querySelectorAll("input[name='service_type']").forEach(radio => {
+      radio.addEventListener("change", updateGrandTotal);
+    });
+  })();
+</script>
+{% endblock %}
+

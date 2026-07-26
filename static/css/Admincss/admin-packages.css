@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* NAVBAR (same for all admin pages) */
+.admin-navbar {
+    background: #0a3d62;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.admin-navbar nav a.active,
+.admin-navbar nav a:hover {
+    text-decoration: underline;
+}
+
+.logout {
+    color: #ffb3b3;
+}
+
+/* PAGE CONTAINER */
+.container {
+    padding: 25px;
+}
+
+.add-btn {
+    padding: 10px 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #0a3d62;
+    color: white;
+}
+
+.edit-btn {
+    background: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 3px;
+}
+
+.delete-btn {
+    background: #c0392b;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 3px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 350px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+#saveServiceBtn {
+    background: #27ae60;
+    padding: 8px 15px;
+    color: white;
+    border: none;
+}
+
+#closeServiceModal {
+    background: #b3b3b3;
+    padding: 8px 15px;
+    border: none;
+}

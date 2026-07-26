@@ -1,0 +1,151 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8fafc;
+  color: #222;
+  line-height: 1.5;
+}
+
+
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0077cc;
+}
+
+header nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #0077cc;
+}
+
+.cta-btn {
+  background: #0077cc;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.cta-btn:hover {
+  background: #005fa3;
+}
+
+main {
+  padding-top: 120px;
+}
+
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+}
+
+.auth-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-card h1 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.auth-form {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-form.active {
+  display: flex;
+}
+
+label {
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #005fcc;
+}
+
+.switch-text {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.switch-text a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}

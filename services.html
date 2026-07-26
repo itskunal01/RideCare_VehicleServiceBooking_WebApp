@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RideCare — Bike Services</title>
+  <link rel="stylesheet" href="/frontend/css/services.css" />
+</head>
+<body>
+
+ 
+  <header>
+    <div class="logo">RideCare</div>
+    <nav>
+      <ul>
+        <li><a href="/frontend/index.html">Home</a></li>
+        <li><a href="/frontend/services.html" class="active">Services</a></li>
+        <li><a href="/packages.html">Packages</a></li>
+      </ul>
+    </nav>
+    <button class="cta-btn">Book Now</button>
+  </header>
+
+ 
+  <main>
+    <div class="page-head" id="services">
+      <h1>Choose Individual Bike Services</h1>
+      <p class="lead">Select services you need — add multiple items and proceed to booking. Doorstep & workshop options available.</p>
+    </div>
+
+    <div class="content" style="align-items:start;">
+      
+      <section aria-labelledby="services-heading">
+        <h2 id="services-heading" class="visually-hidden">Bike Services List</h2>
+
+        <div class="service-grid" id="serviceGrid">
+
+          <
+          <article class="card" data-id="engine-oil-change">
+            <div class="card-top">
+              <div>
+                <h3>Engine Oil Change</h3>
+                <p class="desc">Replace engine oil and inspect filter for smoother performance.</p>
+                <div class="meta"><span class="price">₹499</span><span class="duration">30 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="engine-oil-change">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="engine-oil-change">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="chain-cleaning">
+            <div class="card-top">
+              <div>
+                <h3>Chain Cleaning & Lubrication</h3>
+                <p class="desc">Clean, lube, and adjust chain tension for smooth rides.</p>
+                <div class="meta"><span class="price">₹249</span><span class="duration">20 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="chain-cleaning">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="chain-cleaning">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="brake-inspection">
+            <div class="card-top">
+              <div>
+                <h3>Brake Inspection & Adjustment</h3>
+                <p class="desc">Inspect brake pads, adjust tension, and ensure smooth braking.</p>
+                <div class="meta"><span class="price">₹299</span><span class="duration">25 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="brake-inspection">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="brake-inspection">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="spark-plug">
+            <div class="card-top">
+              <div>
+                <h3>Spark Plug Cleaning/Replacement</h3>
+                <p class="desc">Check, clean, and replace spark plug for efficient combustion.</p>
+                <div class="meta"><span class="price">₹199</span><span class="duration">15 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="spark-plug">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="spark-plug">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="throttle-lube">
+            <div class="card-top">
+              <div>
+                <h3>Throttle Cable Lubrication</h3>
+                <p class="desc">Lubricate throttle cable for smoother and quicker response.</p>
+                <div class="meta"><span class="price">₹149</span><span class="duration">15 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="throttle-lube">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="throttle-lube">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="battery-check">
+            <div class="card-top">
+              <div>
+                <h3>Battery Check & Top-up</h3>
+                <p class="desc">Test voltage, clean terminals, and refill battery water if needed.</p>
+                <div class="meta"><span class="price">₹249</span><span class="duration">20 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="battery-check">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="battery-check">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="brake-pads">
+            <div class="card-top">
+              <div>
+                <h3>Brake Shoe/Pads Replacement</h3>
+                <p class="desc">Replace worn brake shoes or pads for optimal stopping power.</p>
+                <div class="meta"><span class="price">₹449</span><span class="duration">30 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="brake-pads">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="brake-pads">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="clutch-plate">
+            <div class="card-top">
+              <div>
+                <h3>Clutch Plate Replacement</h3>
+                <p class="desc">Replace worn clutch plates and springs for smoother gear shifts.</p>
+                <div class="meta"><span class="price">₹1199</span><span class="duration">90 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="clutch-plate">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="clutch-plate">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="tyre-replacement">
+            <div class="card-top">
+              <div>
+                <h3>Tyre Replacement (Labour)</h3>
+                <p class="desc">Replace and balance tyres for better grip and handling.</p>
+                <div class="meta"><span class="price">₹399</span><span class="duration">30 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="tyre-replacement">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="tyre-replacement">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="electrical-check">
+            <div class="card-top">
+              <div>
+                <h3>Electrical Wiring Check</h3>
+                <p class="desc">Inspect, diagnose, and fix wiring or electrical issues.</p>
+                <div class="meta"><span class="price">₹499</span><span class="duration">45 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="electrical-check">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="electrical-check">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="body-wash">
+            <div class="card-top">
+              <div>
+                <h3>Full Body Wash</h3>
+                <p class="desc">High-pressure wash and foam cleaning for a spotless finish.</p>
+                <div class="meta"><span class="price">₹299</span><span class="duration">25 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="body-wash">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="body-wash">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="seat-cover">
+            <div class="card-top">
+              <div>
+                <h3>Seat Cover Replacement</h3>
+                <p class="desc">Replace or install a new, comfortable seat cover.</p>
+                <div class="meta"><span class="price">₹299</span><span class="duration">20 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="seat-cover">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="seat-cover">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="headlight-replace">
+            <div class="card-top">
+              <div>
+                <h3>Headlight/Indicator Replacement</h3>
+                <p class="desc">Replace damaged or dim headlight and indicator bulbs.</p>
+                <div class="meta"><span class="price">₹249</span><span class="duration">15 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="headlight-replace">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="headlight-replace">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="horn-repair">
+            <div class="card-top">
+              <div>
+                <h3>Horn or Switchgear Repair</h3>
+                <p class="desc">Fix or replace faulty horn, switches, or electrical controls.</p>
+                <div class="meta"><span class="price">₹199</span><span class="duration">20 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="horn-repair">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="horn-repair">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="battery-replacement">
+            <div class="card-top">
+              <div>
+                <h3>Battery Replacement (Labour)</h3>
+                <p class="desc">Remove and install new battery with proper fitting.</p>
+                <div class="meta"><span class="price">₹249</span><span class="duration">25 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="battery-replacement">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="battery-replacement">View Details</button>
+            </div>
+          </article>
+
+          <article class="card" data-id="tyre-puncture">
+            <div class="card-top">
+              <div>
+                <h3>Tyre Puncture Repair</h3>
+                <p class="desc">Fix punctures and check air pressure for a safe ride.</p>
+                <div class="meta"><span class="price">₹99</span><span class="duration">10 min</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="tyre-puncture">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="tyre-puncture">View Details</button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      
+      <aside class="cart" id="cartSidebar">
+        <h3>Your Selection</h3>
+        <div class="cart-items" id="cartItems">
+          <div class="muted small">No services added yet.</div>
+        </div>
+        <div class="cart-summary" id="cartSummary" style="display:none;">
+          <div class="checkout">
+            <div class="small muted">Subtotal</div>
+            <div class="total" id="cartTotal">₹0</div>
+          </div>
+          <div style="display:flex;gap:.5rem;margin-top:.6rem;">
+            <button class="btn btn-primary" id="proceedBtn">Proceed to Book</button>
+            <button class="btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  
+  <div class="mobile-cart-bar" id="mobileCartBar" aria-hidden="true">
+    <div class="summary" id="mobileSummary">
+      <div class="small muted" id="mobileCount">0 services</div>
+      <div class="small total" id="mobileTotal">₹0</div>
+    </div>
+    <button class="open-btn" id="openDrawer">View</button>
+  </div>
+
+  
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div><strong>Your Selection</strong><div class="small muted" id="drawerCount">0 items</div></div>
+      <button class="btn" id="closeDrawer">Close</button>
+    </div>
+    <div class="drawer-body" id="drawerBody">
+      <div class="muted">No items selected yet.</div>
+    </div>
+    <div class="drawer-footer">
+      <div>
+        <div class="small muted">Total</div>
+        <div class="total" id="drawerTotal">₹0</div>
+      </div>
+      <div class="drawer-actions">
+        <button class="btn" id="drawerClear">Clear</button>
+        <button class="btn btn-primary" id="drawerProceed">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <button class="btn" id="modalClose" style="float:right">Close</button>
+      <h3 id="modalTitle">Service Title</h3>
+      <p id="modalBody">Detailed description goes here.</p>
+      <div style="margin-top:1rem;">
+        <button class="btn btn-primary" id="modalAdd">Add & Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/services.js"></script>
+</body>
+</html>

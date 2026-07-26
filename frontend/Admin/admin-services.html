@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Manage Services</title>
+    <link rel="stylesheet" href="/frontend/css/Admincss/admin-services.css">
+</head>
+
+<body>
+
+    <!-- SAME ADMIN NAVBAR -->
+    <header class="admin-navbar">
+        <div class="logo">RideCare Admin</div>
+        <nav>
+            <a href="/frontend/Admin/admin_dash.html">Dashboard</a>
+            <a href="/frontend/Admin/admin-bookings.htm">Bookings</a>
+            <a href="/frontend/Admin/admin-services.html">Services</a>
+            <a href="/frontend/Admin/admin-packages.html">Packages</a>
+            <a href="/frontend/Admin/admin-user.html" class="active">Users</a>
+            <a href="admin-login.html" class="logout">Logout</a>
+    </nav>
+    </header>
+
+    <div class="container">
+        <h2>Manage Services</h2>
+
+        <!-- Add Service Button -->
+        <button class="add-btn" id="openServiceForm">+ Add New Service</button>
+
+        <!-- Services Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th>Price (₹)</th>
+                    <th>Estimated Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="servicesTableBody">
+                <tr>
+                    <td>Engine Oil Change</td>
+                    <td>Oil replacement + filter cleaning</td>
+                    <td>499</td>
+                    <td>30 min</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Brake Check & Adjustment</td>
+                    <td>Front + rear brake inspection</td>
+                    <td>299</td>
+                    <td>20 min</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add / Edit Service Modal -->
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Add New Service</h3>
+            <label>Service Name
+                <input type="text" id="serviceName">
+            </label>
+            <label>Description
+                <textarea id="serviceDescription"></textarea>
+            </label>
+            <label>Price (₹)
+                <input type="number" id="servicePrice">
+            </label>
+            <label>Estimated Time
+                <input type="text" id="serviceTime" placeholder="Ex: 30 min">
+            </label>
+
+            <div class="modal-actions">
+                <button id="saveServiceBtn">Save</button>
+                <button id="closeServiceModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/frontend/adminjs/admin-services.js"></script>
+</body>
+</html>

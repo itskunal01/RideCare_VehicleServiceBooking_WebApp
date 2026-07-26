@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RideCare — Login & Register</title>
+  <link rel="stylesheet" href="/frontend/css/login.css">
+</head>
+<body>
+
+  
+ <header>
+    <div class="logo">RideCare</div>
+    <nav>
+      <ul>
+        <li><a href="/frontend/index.html">Home</a></li>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/packages.html">Packages</a></li>
+      </ul>
+    </nav>
+    <button class="cta-btn">Book Now</button>
+  </header>
+
+  
+  <main class="auth-container">
+    <div class="auth-card">
+      <h1 id="formTitle">Login to RideCare</h1>
+
+      
+      <form id="loginForm" class="auth-form active">
+        <label>Email Address
+          <input type="email" id="loginEmail" placeholder="you@example.com" required>
+        </label>
+
+        <label>Password
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </label>
+
+        <button type="submit" class="btn-primary">Login</button>
+
+        <p class="switch-text">
+          Don’t have an account? 
+          <a href="#" id="showRegister">Register here</a>
+        </p>
+      </form>
+
+      
+      <form id="registerForm" class="auth-form">
+        <label>Full Name
+          <input type="text" id="registerName" placeholder="Your Name" required>
+        </label>
+
+        <label>Email Address
+          <input type="email" id="registerEmail" placeholder="you@example.com" required>
+        </label>
+
+        <label>Phone Number
+          <input type="tel" id="registerPhone" placeholder="9876543000" required>
+        </label>
+
+        <label>Password
+          <input type="password" id="registerPassword" placeholder="Create a password" required>
+        </label>
+
+        <button type="submit" class="btn-primary">Create Account</button>
+
+        <p class="switch-text">
+          Already have an account? 
+          <a href="#" id="showLogin">Login here</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Booking Management</title>
+    <link rel="stylesheet" href="{% static 'css/Admincss/admin-bookings.css' %}">
+</head>
+<body>
+    <header class="admin-navbar">
+        <div class="logo">RideCare Admin</div>
+        <nav>
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+            <a href="{% url 'admin_bookings' %}" class="active">Bookings</a>
+            <a href="{% url 'admin_services' %}">Services</a>
+            <a href="{% url 'admin_packages' %}">Packages</a>
+            <a href="{% url 'admin_users' %}">Users</a>
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Bookings Management</h2>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="accepted">Accepted</button>
+            <button class="filter-btn" data-filter="in_progress">In Progress</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+            <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+            <button class="filter-btn" data-filter="rejected">Rejected</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Service / Package</th>
+                    <th>Address</th>
+                    <th>Date &amp; Time</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="bookingTableBody">
+                {% for b in bookings %}
+                <tr class="booking-row" data-status="{{ b.status }}" data-booking-id="{{ b.id }}">
+                    <td>{{ b.name }}</td>
+                    <td>{{ b.phone }}</td>
+                    <td>
+                        {% with svc_list=b.services.all pkg_list=b.packages.all %}
+                            {% if svc_list or pkg_list %}
+                                {% for s in svc_list %}{{ s.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                {% if svc_list and pkg_list %} | {% endif %}
+                                {% for p in pkg_list %}{{ p.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>{{ b.address }}</td>
+                    <td>{{ b.preferred_date }} | {{ b.preferred_time }}</td>
+                    <td>₹{{ b.total_amount|default:"0"|floatformat:0 }}</td>
+                    <td class="status status-{{ b.status }}" data-status="{{ b.status }}">{{ b.get_status_display }}</td>
+                    <td class="actions">
+                        <form method="post" action="{% url 'admin_update_booking_status' %}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="booking_id" value="{{ b.id }}">
+                            <input type="hidden" name="status" value="confirmed">
+                            <button type="submit" class="accept-btn">Accept</button>
+                        </form>
+                        <form method="post" action="{% url 'admin_update_booking_status' %}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="booking_id" value="{{ b.id }}">
+                            <input type="hidden" name="status" value="cancelled">
+                            <button type="submit" class="reject-btn">Reject</button>
+                        </form>
+                        <form method="post" action="{% url 'admin_update_booking_status' %}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="booking_id" value="{{ b.id }}">
+                            <select name="status" class="status-dropdown" onchange="this.form.submit()">
+                                <option value="">Update Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Accepted</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7">No bookings yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="{% static 'js/admin-booking.js' %}"></script>
+</body>
+</html>
+

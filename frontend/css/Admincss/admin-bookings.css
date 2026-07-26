@@ -1,0 +1,105 @@
+/* GLOBAL STYLES */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* ADMIN NAVBAR (Same as Dashboard) */
+.admin-navbar {
+    background: #0a3d62;
+    color: #fff;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-navbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.admin-navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.admin-navbar nav a:hover,
+.admin-navbar nav a.active {
+    text-decoration: underline;
+}
+
+.admin-navbar .logout {
+    color: #ffb3b3;
+    font-weight: bold;
+}
+
+/* PAGE CONTAINER */
+.container {
+    padding: 25px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* FILTER BUTTONS */
+.filters {
+    margin-bottom: 15px;
+}
+.filter-btn {
+    padding: 8px 14px;
+    margin-right: 8px;
+    border: none;
+    background: #dcdcdc;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.filter-btn.active,
+.filter-btn:hover {
+    background: #0a3d62;
+    color: #fff;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+th {
+    background: #0a3d62;
+    color: #fff;
+}
+
+.actions button,
+.actions select {
+    padding: 6px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.accept-btn { background: #27ae60; color: white; }
+.reject-btn { background: #c0392b; color: white; }
+
+/* STATUS COLORS */
+.status-pending { color: #c7a100; font-weight: bold; }
+.status-accepted { color: #0a993c; font-weight: bold; }
+.status-progress { color: #0099cc; font-weight: bold; }
+.status-completed { color: #0047ab; font-weight: bold; }
+.status-rejected { color: red; font-weight: bold; }

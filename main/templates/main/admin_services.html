@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Manage Services</title>
+    <link rel="stylesheet" href="{% static 'css/Admincss/admin-services.css' %}">
+</head>
+<body>
+    <header class="admin-navbar">
+        <div class="logo">RideCare Admin</div>
+        <nav>
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+            <a href="{% url 'admin_bookings' %}">Bookings</a>
+            <a href="{% url 'admin_services' %}" class="active">Services</a>
+            <a href="{% url 'admin_packages' %}">Packages</a>
+            <a href="{% url 'admin_users' %}">Users</a>
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Manage Services</h2>
+        <div class="actions-row">
+            <a class="btn-primary" href="/django-admin/main/service/add/" target="_blank">Add Service</a>
+            <a class="btn-secondary" href="/django-admin/main/service/" target="_blank">Edit/Delete Services</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th>Price (₹)</th>
+                    <th>Estimated Time</th>
+                </tr>
+            </thead>
+            <tbody id="servicesTableBody">
+                {% for s in services %}
+                <tr>
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.description }}</td>
+                    <td>{{ s.price }}</td>
+                    <td>{{ s.duration }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No services yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="{% static 'js/admin-services.js' %}"></script>
+</body>
+</html>
+

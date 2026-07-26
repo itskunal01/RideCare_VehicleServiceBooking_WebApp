@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}RideCare — Login & Register{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+  <main class="auth-container">
+    <div class="auth-card">
+      <h1 id="formTitle">{% if is_register %}Create Your RideCare Account{% else %}Login to RideCare{% endif %}</h1>
+
+      
+      <form id="loginForm" class="auth-form {% if not is_register %}active{% endif %}" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label>Email Address
+          <input type="email" id="loginEmail" name="email" placeholder="you@example.com" required>
+        </label>
+
+        <label>Password
+          <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+        </label>
+
+        <button type="submit" class="btn-primary">Login</button>
+
+        <p class="switch-text">
+          Don't have an account? 
+          <a href="{% url 'register' %}">Register here</a>
+        </p>
+      </form>
+
+      
+      <form id="registerForm" class="auth-form {% if is_register %}active{% endif %}" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label>Full Name
+          <input type="text" id="registerName" name="first_name" placeholder="Your Name" required>
+        </label>
+
+        <label>Email Address
+          <input type="email" id="registerEmail" name="email" placeholder="you@example.com" required>
+        </label>
+
+        <label>Phone Number
+          <input type="tel" id="registerPhone" name="phone" placeholder="9876543000">
+        </label>
+
+        <label>Password
+          <input type="password" id="registerPassword" name="password1" placeholder="Create a password" required>
+        </label>
+
+        <label>Confirm Password
+          <input type="password" id="registerPassword2" name="password2" placeholder="Confirm password" required>
+        </label>
+
+        {% if form.errors %}
+          <div style="color: red; font-size: 0.9rem; margin-bottom: 10px;">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <button type="submit" class="btn-primary">Create Account</button>
+
+        <p class="switch-text">
+          Already have an account? 
+          <a href="{% url 'login' %}">Login here</a>
+        </p>
+      </form>
+    </div>
+  </main>
+{% endblock %}
+

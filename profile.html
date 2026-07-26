@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile | RideCare</title>
+  <link rel="stylesheet" href="/frontend/css/profile.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">RideCare</div>
+    <nav>
+      <a href="/frontend/index.html">Home</a>
+      <a href="/frontend/booking.html">Book</a>
+      <a href="/frontend/profile.html" class="active">Profile</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Profile Info -->
+    <section class="profile-header">
+      <div class="profile-photo">
+        <img src="/frontend/images/default-profile.png" alt="Profile Photo" id="profilePhoto">
+        <input type="file" id="photoUpload" accept="image/*" hidden>
+        <button class="edit-photo" id="changePhotoBtn">Change Photo</button>
+      </div>
+      <div class="profile-info">
+        <h2 id="userName">John Doe</h2>
+        <p id="userEmail">johndoe@email.com</p>
+        <p id="userAddress">123 Main Street,Pune</p>
+        <button class="btn-edit" id="editProfileBtn">Edit Profile</button>
+      </div>
+    </section>
+
+    <!-- Service History -->
+    <section class="service-history">
+      <h3>Past Services</h3>
+      <table id="pastServicesTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Service / Package</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Upcoming Service -->
+    <section class="upcoming-service">
+      <h3>Upcoming Service Reminder</h3>
+      <p>Based on your last service on <span id="lastServiceDate">N/A</span></p>
+
+      <label for="serviceInterval">Remind me after:</label>
+      <select id="serviceInterval">
+        <option value="30">30 days</option>
+        <option value="60">60 days</option>
+        <option value="90" selected>90 days</option>
+      </select>
+
+      <p>Next service due on: <strong id="nextServiceDate">N/A</strong></p>
+    </section>
+  </main>
+
+  <script src="/profile.html"></script>
+</body>
+</html>

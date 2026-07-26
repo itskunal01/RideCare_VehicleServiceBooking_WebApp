@@ -1,0 +1,145 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}User Profile | RideCare{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+  <main class="container">
+    <!-- Profile Info -->
+    <section class="profile-header">
+      <div class="profile-photo">
+        {% if profile.profile_photo %}
+          <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" id="profilePhoto">
+        {% else %}
+          <img src="{% static 'images/default-profile.png' %}" alt="Profile Photo" id="profilePhoto">
+        {% endif %}
+      </div>
+      <div class="profile-info">
+        <h2 id="userName">{{ user.get_full_name|default:user.username }}</h2>
+        <p id="userEmail">{{ user.email }}</p>
+        <p id="userAddress">{{ profile.address|default:"No address provided" }}</p>
+        <button class="btn-edit" id="editProfileBtn" onclick="document.getElementById('profileForm').style.display='block'">Edit Profile</button>
+      </div>
+    </section>
+
+    <!-- Edit Profile Form -->
+    <section id="profileForm" style="display:none;">
+      <h3>Edit Profile</h3>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-primary">Save Changes</button>
+        <button type="button" class="btn-secondary" onclick="document.getElementById('profileForm').style.display='none'">Cancel</button>
+      </form>
+    </section>
+
+    <!-- Service History -->
+    <section class="service-history">
+      <h3>Past Services</h3>
+      <table id="pastServicesTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Service / Package</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.preferred_date|date:"M d, Y" }}</td>
+            <td>
+              {% for service in booking.services.all %}
+                {{ service.name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+              {% for package in booking.packages.all %}
+                {{ package.name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+            <td>₹{{ booking.total_amount }}</td>
+            <td>{{ booking.get_status_display }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4">No bookings yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Upcoming Service -->
+    <section class="upcoming-service">
+      <h3>Upcoming Service Reminder</h3>
+      {% if bookings %}
+        <p>Based on your last service on <span id="lastServiceDate" data-last-date="{{ bookings.0.preferred_date|date:'Y-m-d' }}">{{ bookings.0.preferred_date|date:"M d, Y" }}</span></p>
+      {% else %}
+        <p>Based on your last service on <span id="lastServiceDate" data-last-date="">N/A</span></p>
+      {% endif %}
+
+      <label for="serviceInterval">Remind me after:</label>
+      <select id="serviceInterval">
+        <option value="30" {% if interval_days == 30 %}selected{% endif %}>30 days</option>
+        <option value="60" {% if interval_days == 60 %}selected{% endif %}>60 days</option>
+        <option value="90" {% if interval_days == 90 %}selected{% endif %}>90 days</option>
+      </select>
+
+      <p>Next service due on: <strong id="nextServiceDate">
+        {% if next_due_date %}{{ next_due_date|date:"M d, Y" }}{% else %}N/A{% endif %}
+      </strong></p>
+    </section>
+  </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+  const intervalSelect = document.getElementById('serviceInterval');
+  const lastServiceDateEl = document.getElementById('lastServiceDate');
+  const nextServiceDateEl = document.getElementById('nextServiceDate');
+
+  function formatDate(dateObj) {
+    return dateObj.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+  }
+
+  function updateNextDate() {
+    const isoDate = lastServiceDateEl ? lastServiceDateEl.dataset.lastDate : '';
+    const days = parseInt(intervalSelect.value || '90', 10);
+
+    if (!isoDate) {
+      nextServiceDateEl.textContent = 'N/A';
+      return;
+    }
+
+    const base = new Date(isoDate + 'T00:00:00');
+    if (isNaN(base.getTime())) {
+      nextServiceDateEl.textContent = 'N/A';
+      return;
+    }
+
+    base.setDate(base.getDate() + days);
+    nextServiceDateEl.textContent = formatDate(base);
+  }
+
+  if (intervalSelect) {
+    intervalSelect.addEventListener('change', () => {
+      // Persist selection in URL so refresh keeps it
+      const params = new URLSearchParams(window.location.search);
+      params.set('interval', intervalSelect.value);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', newUrl);
+
+      updateNextDate();
+    });
+  }
+
+  updateNextDate();
+})();
+</script>
+{% endblock %}
+

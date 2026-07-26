@@ -1,0 +1,85 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f8fafc;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background: #1e40af;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.navbar a.active {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-header {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.profile-photo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.edit-photo {
+  display: block;
+  margin-top: 10px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-edit {
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.service-history table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.service-history th, .service-history td {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  text-align: left;
+}
+.service-history th {
+  background: #f1f5f9;
+}
+
+.upcoming-service {
+  margin-top: 2rem;
+  background: #eff6ff;
+  padding: 1.5rem;
+  border-radius: 8px;
+}

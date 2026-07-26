@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}RideCare — Bike Services{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+  <main>
+    <div class="page-head" id="services">
+      <h1>Choose Individual Bike Services</h1>
+      <p class="lead">Select services you need — add multiple items and proceed to booking. Doorstep & workshop options available.</p>
+    </div>
+
+    <div class="content" style="align-items:start;">
+      
+      <section aria-labelledby="services-heading">
+        <h2 id="services-heading" class="visually-hidden">Bike Services List</h2>
+
+        <div class="service-grid" id="serviceGrid">
+          {% for service in services %}
+          <article class="card" data-id="{{ service.id }}" data-price="{{ service.price }}">
+            <div class="card-top">
+              <div>
+                <h3>{{ service.name }}</h3>
+                <p class="desc">{{ service.description }}</p>
+                <div class="meta"><span class="price">₹{{ service.price }}</span><span class="duration">{{ service.duration }}</span></div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary add-btn" data-id="{{ service.id }}" data-name="{{ service.name }}" data-price="{{ service.price }}">Add</button>
+              <button class="btn btn-secondary details-btn" data-id="{{ service.id }}">View Details</button>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      
+      <aside class="cart" id="cartSidebar">
+        <h3>Your Selection</h3>
+        <div class="cart-items" id="cartItems">
+          <div class="muted small">No services added yet.</div>
+        </div>
+        <div class="cart-summary" id="cartSummary" style="display:none;">
+          <div class="checkout">
+            <div class="small muted">Subtotal</div>
+            <div class="total" id="cartTotal">₹0</div>
+          </div>
+          <div style="display:flex;gap:.5rem;margin-top:.6rem;">
+            <button class="btn btn-primary" id="proceedBtn">Proceed to Book</button>
+            <button class="btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  
+  <div class="mobile-cart-bar" id="mobileCartBar" aria-hidden="true">
+    <div class="summary" id="mobileSummary">
+      <div class="small muted" id="mobileCount">0 services</div>
+      <div class="small total" id="mobileTotal">₹0</div>
+    </div>
+    <button class="open-btn" id="openDrawer">View</button>
+  </div>
+
+  
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div><strong>Your Selection</strong><div class="small muted" id="drawerCount">0 items</div></div>
+      <button class="btn" id="closeDrawer">Close</button>
+    </div>
+    <div class="drawer-body" id="drawerBody">
+      <div class="muted">No items selected yet.</div>
+    </div>
+    <div class="drawer-footer">
+      <div>
+        <div class="small muted">Total</div>
+        <div class="total" id="drawerTotal">₹0</div>
+      </div>
+      <div class="drawer-actions">
+        <button class="btn" id="drawerClear">Clear</button>
+        <a href="{% url 'booking' %}" class="btn btn-primary" id="drawerProceed">Proceed</a>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <button class="btn" id="modalClose" style="float:right">Close</button>
+      <h3 id="modalTitle">Service Title</h3>
+      <p id="modalBody">Detailed description goes here.</p>
+      <div style="margin-top:1rem;">
+        <button class="btn btn-primary" id="modalAdd">Add & Close</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/services.js' %}"></script>
+<script>
+  // Store selected services and redirect to booking
+  document.getElementById('proceedBtn').addEventListener('click', function(e) {
+    const cart = JSON.parse(sessionStorage.getItem('ridecare_cart') || localStorage.getItem('ridecare_cart_v1') || '[]');
+    const serviceIds = cart.map(item => item.id || item.dataId);
+    if (serviceIds.length > 0) {
+      const url = new URL("{% url 'booking' %}", window.location.origin);
+      serviceIds.forEach(id => url.searchParams.append('services', id));
+      window.location.href = url.toString();
+    } else {
+      alert('Please select at least one service before proceeding.');
+    }
+  });
+</script>
+{% endblock %}
+

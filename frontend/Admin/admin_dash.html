@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — RideCare</title>
+    <link rel="stylesheet" href="/frontend/css/Admincss/dash.css" />
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">RideCare Admin</div>
+            <nav>
+                <a href="/frontend/Admin/admin_dash.html">Dashboard</a>
+                <a href="/frontend/Admin/admin-bookings.htm">Bookings</a>
+                <a href="/frontend/Admin/admin-services.html">Services</a>
+                <a href="/frontend/Admin/admin-packages.html">Packages</a>
+                <a href="/frontend/Admin/admin-user.html" class="active">Users</a>
+                <a href="admin-login.html" class="logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard">
+        
+        <!-- Dashboard Title -->
+        <h1>Admin Dashboard</h1>
+        <p class="subheading">Overview of business activity</p>
+
+        <!-- STAT BOXES -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <h3>Today's Bookings</h3>
+                <p class="number">14</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>This Week's Bookings</h3>
+                <p class="number">92</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>This Month's Bookings</h3>
+                <p class="number">312</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Completed Services</h3>
+                <p class="number">276</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Ongoing Services</h3>
+                <p class="number ongoing">8</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Pending Requests</h3>
+                <p class="number pending">19</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <p class="number">1,204</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Top Service</h3>
+                <p class="number">Premium Care Package</p>
+            </div>
+
+        </section>
+
+        <!-- QUICK ACTIONS -->
+    </main>
+<script src="/frontend/adminjs/admin-dash.js"></script>
+
+</body>
+</html>

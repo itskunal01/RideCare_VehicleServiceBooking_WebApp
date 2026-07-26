@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Bike Service Packages{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/packages.css' %}">
+{% endblock %}
+
+{% block content %}
+  
+  <section class="page-header">
+    <h1>Bike Service Packages</h1>
+    <p>Choose a package that suits your ride. Expert care, transparent pricing.</p>
+  </section>
+
+  
+  <main class="packages-list">
+    {% for package in packages %}
+    <article class="card package-card {% if package.is_recommended %}recommended{% endif %}" data-id="{{ package.id }}" data-price="{{ package.price }}">
+      <div class="card-top">
+        <div>
+          <h3>{{ package.name }} {% if package.badge %}<span class="badge">{{ package.badge }}</span>{% endif %}</h3>
+          <p class="desc">{{ package.description }}</p>
+          <div class="meta"><span class="price">₹{{ package.price }}</span><span class="duration">{{ package.duration }}</span></div>
+        </div>
+      </div>
+      <ul class="included-services">
+        {% for service in package.services.all %}
+          <li>{{ service.name }}</li>
+        {% endfor %}
+      </ul>
+      <div class="details">
+        <p><strong>Full Details:</strong> {{ package.description }}</p>
+        <ul>
+          {% for service in package.services.all %}
+            <li>{{ service.name }}</li>
+          {% endfor %}
+          <li>Price: ₹{{ package.price }}</li>
+          <li>Duration: {{ package.duration }}</li>
+        </ul>
+      </div>
+
+      <div class="card-actions">
+        <a href="{% url 'booking' %}?package={{ package.id }}" class="btn btn-primary book-btn">Book Package</a>
+        <button class="btn btn-secondary details-btn">View Details</button>
+      </div>
+    </article>
+    {% endfor %}
+  </main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/packages.js' %}"></script>
+{% endblock %}
+

@@ -1,0 +1,63 @@
+{% load static custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Manage Users</title>
+  <link rel="stylesheet" href="{% static 'css/Admincss/admin-users.css' %}">
+</head>
+<body>
+<header class="admin-navbar">
+    <h2 class="logo">RideCare Admin</h2>
+    <nav>
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_bookings' %}">Bookings</a>
+        <a href="{% url 'admin_services' %}">Services</a>
+        <a href="{% url 'admin_packages' %}">Packages</a>
+        <a href="{% url 'admin_users' %}" class="active">Users</a>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Manage Users</h1>
+
+    <table class="users-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Total Bookings</th>
+                <th>Last Service</th>
+                <th>Next Due</th>
+            </tr>
+        </thead>
+        <tbody id="usersBody">
+            {% for u in users %}
+            <tr>
+                <td>{{ u.user.get_full_name|default:u.user.username }}</td>
+                <td>{{ u.phone|default:'—' }}</td>
+                <td>{{ booking_counts|get_item:u.user.id|default:0 }}</td>
+                <td>
+                    {% with last=last_service_map|get_item:u.user.id %}
+                        {% if last %}{{ last|date:"M d, Y" }}{% else %}—{% endif %}
+                    {% endwith %}
+                </td>
+                <td>
+                    {% with nxt=next_service_map|get_item:u.user.id %}
+                        {% if nxt %}{{ nxt|date:"M d, Y" }}{% else %}—{% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No users yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+<script src="{% static 'js/admin-users.js' %}"></script>
+</body>
+</html>
+
